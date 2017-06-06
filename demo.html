@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		h1 {font-size: 30px!important;font-weight: bold;}
+	</style>
+<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="js/common-1.2.3-utf8.min.js?v=170523"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<link rel="stylesheet" href="css/base.css">
+</head>
+<body>
+<!-- 跟随鼠标晃动 -->
+<h1>跟随鼠标晃动</h1>
+<style type="text/css">
+.slideContain {width:100px;height:400px;position: relative;}
+	.slideBox {width: 100px;height:100px;background:red;position: absolute;left:250px;top:50px;}
+}
+</style>
+<div class="slideContain">
+	<div class="slideBox" data-slide-mode="1" data-slide-step="10" data-slide-speed="10">
+	跟随鼠标晃动
+</div>
+</div>
+
+<script type="text/javascript">
+	$.moveSlide();
+</script>
+<br>
+
+<!-- 动态添加JS,CSS -->
+<h1 class="clearfix">动态添加JS,CSS</h1>
+<script type="text/javascript">
+	$(function(){
+		// 需要在服务器环境运行，否则会报错
+		// $.addLink(['jquery.easing.min.js'],'js/',function(url,status,resource){
+		// 	//console.log(url);
+		// 	// console.log(status);
+		// 	// console.log(resource);
+		// });		
+	});
+</script>
+<br>
+
+<!-- 背景音乐 -->
+<style>
+	.audioSwitch {width:55px;height:55px;border-radius:50%;background:url(images/btn_bgm.jpg) no-repeat 0 0;display: block;-webkit-animation:rotate 3s linear infinite forwards;-moz-animation:rotate 3s linear infinite forwards;animation:rotate 3s linear infinite forwards;}
+	.audioPause {background-position: -55px 0}
+	@-webkit-keyframes rotate { 0% {-webkit-transform:rotate(0deg)} 100% {-webkit-transform:rotate(360deg)}}
+	@-moz-keyframes rotate { 0% {-moz-transform:rotate(0deg)} 100% {-moz-transform:rotate(360deg)} }
+	@keyframes rotate { 0% {transform:rotate(0deg)} 100% {transform:rotate(360deg)} }
+</style>
+<h1 class="clearfix">背景音乐</h1>
+<a href="javascript:;" class="audioSwitch"></a>
+<script type="text/javascript">
+	$('.audioSwitch').click(function(){
+		$(this).toggleClass('audioPause');
+		if($('#audio').length == 0){
+			$.audioPlayer({
+				id:'audio',
+				src:'xzq.mp3',
+				loop:true, // 默认true
+				volume : 0.3,
+				pauseBtn : '.audioSwitch',
+				pauseCallBack : function(state){
+					console.log( ( state == 1 ) ? '播放' : '暂停' );
+				}
+			});
+		}		
+	});
+	
+</script>
+<br>
+
+<!-- 加入收藏夹 -->
+<h1 class="clearfix">加入收藏夹</h1>
+<a href="javascript:;" class="favorite" rel="sidebar">点我加入收藏</a>
+<script type="text/javascript">
+	$(function(){
+		// addFavorite
+		$('.favorite').click(function(){
+			$.addFavorite(window.location.href,'收藏名称');
+		})
+	});
+</script>
+<br>
+<br>
+<br>
+
+<!-- 鼠标进入、离开对象方向监控 -->
+<h1 class="clearfix">鼠标进入、离开对象方向监控</h1>
+<div class="moveDir" style="margin:50px;width:300px;height:300px;padding:10px;border:1px solid #000" ></div>
+<script type="text/javascript">
+	$('.moveDir').moveDirection(function(inOut,dir){
+		$('.moveDir').html( (inOut=='out'?'离开':'进入') +" , "+
+							((dir==0)?"上":(dir==1)?"右":(dir==2)?"下":"左")
+						);
+	});
+</script>
+<br>
+
+<!-- 轮播 -->
+<h1 class="clearfix">轮播</h1>
+<style type="text/css">
+.runContainer {width:300px;height:300px;position:relative;left:100px;float:left;margin:10px 50px;}
+.runContainer .prev,.runContainer .next {width:20px;height:15px;font-size:12px;color:#fff;background: red;display: block;position:absolute;top:150px;}
+.runContainer .prev {left:-30px;}
+.runContainer .next{right:-30px;}
+
+/* UL 样式*/	
+.runBox {width:300px;height:300px;overflow: hidden;float:left;}
+.runBox ul {width:100%;height:100%;}
+.runBox ul li {float:left;width:300px;height:300px;list-style: none;}		
+.runNum{width:300px;}
+.runNum a {display: block;width:15px;height:15px;background: blue;color:red;float:left;}
+.runNum .on {background: black}
+.runBox li.bg_01,.runBox a.bg_01 { background: blue; }
+.runBox li.bg_02,.runBox a.bg_02 { background: #d92102; }
+.runBox li.bg_03,.runBox a.bg_03 { background: green; }
+
+/* A 样式*/	
+.runContainer2 {width:300px;height:300px;}
+.runBox a {width:100%;height:100%;display: block;}
+</style>
+<!-- 轮播 1 -->
+	<div class="runContainer">
+		<div class="runBox" id="runBox">		
+			<ul>
+				<li class="bg_01">
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">11111</div>
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">22222</div>
+				</li>
+				<li class="bg_02">
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">33333</div>
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">44444</div>
+				</li>
+				<li class="bg_03">
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">55555</div>
+					<div style="width:150px;height:300px;float:left;font-size:30px;text-align: center;line-height:300px;">66666</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 轮播 2 -->
+	<div class="runContainer runContainer2">
+		<div class="runBox" id="runBox2">
+			<a href="javascript:;" class="bg_01"></a>
+			<a href="javascript:;" class="bg_02"></a>
+			<a href="javascript:;" class="bg_03"></a>
+		</div>
+	</div>
+<script type="text/javascript">
+	$("#runBox").runHorse({'mode':'fade','speed':800,'wait':3000});
+	$("#runBox2").runHorse({'dir':0,'mode':'slide','toggleBtn':true,'wait':3000});
+</script>
+<br>
+
+
+<!-- 高亮导航 -->
+<h1 class="clearfix">高亮导航</h1>
+<style type="text/css">
+	.nav-con {width:1920px;height:500px;}
+	#s1 {background: #666}
+	#s2 {background: blue}
+	#s3 {background: red}
+
+	.navList {width:100px;height:200px;position: fixed;top:50%;margin-top: -100px;right:50px;z-index:9999;}
+	.navList2 {right:200px;}
+	.navList .on,.navList .on a {background: #999;color:#fff;}
+	.navList a {width:98px;height:48px;line-height:48px;border:1px solid #999;color:#000;display: block;background: #fff;text-align: center;}
+</style>
+<div class="nav-con" id="s1"></div>
+<div class="nav-con" id="s2"></div>
+<div class="nav-con" id="s3"></div>
+<ul class="navList">
+	<li><a href="javascript:;" data-anchor="s1">part1</a></li>
+	<li><a href="javascript:;" data-anchor="s2">part2</a></li>
+	<li><a href="javascript:;" data-anchor="s3">part3</a></li>
+	<li><a href="javascript:;" data-anchor="top">top</a></li>		
+</ul>
+<script type="text/javascript">
+	$(".navList").highlightNav({selClass:"on",diff:400,mTop:50});
+</script>
+<br>
+
+<!-- 百叶窗 -->
+<h1>百叶窗</h1>
+<style type="text/css">
+.shutterBox {height:240px;width:956px;overflow: hidden;position: relative;float:left;border:1px solid #5662f2;margin-bottom: 10px;}
+.shutterBox dl {width:716px;height:240px;}
+.shutterBox dd {width:636px;height:100%;float:left;overflow: hidden;}
+.shutterBox dt {width:78px;height:100%;float:left;background:url(images/shutter_btn.jpg) no-repeat 0 0;border-left:1px solid #5662f2;border-right:1px solid #5662f2;transition: all 0.5s}
+.shutterBox .tit2{background-position: -80px 0;}
+.shutterBox .tit3{background-position: -160px 0;}
+.shutterBox .tit4{background-position: -240px 0;}
+.shutterBox .on .tit1{background-position: 0 -240px;}
+.shutterBox .on .tit2{background-position: -80px -240px;}
+.shutterBox .on .tit3{background-position: -160px -240px;}
+.shutterBox .on .tit4{background-position: -240px -240px;}
+
+/* 按钮在左 */
+#shutterBox2 dt,#shutterBox2 dd {float: right}
+
+/* 按钮在右 */
+#shutterBox3,#shutterBox4 {float: left;height:560px;width:636px;overflow: hidden;margin-bottom: 10px;}
+#shutterBox3 dt,#shutterBox4 dt,#shutterBox3 dd,#shutterBox4 dd {float:right;overflow: hidden;position: relative;float:left;border:1px solid #5662f2;}
+#shutterBox3 dl,#shutterBox4 dl {width:636px;height:320px;}
+#shutterBox3 dd,#shutterBox4 dd {width:636px;height:240px}
+#shutterBox3 dt,#shutterBox4 dt {width:636px;height:78px;border-top:1px solid #5662f2;border-bottom:1px solid #5662f2;transition: all 0.5s}
+#shutterBox3 .tit1,#shutterBox4 .tit1{background:yellow;}
+#shutterBox3 .tit2,#shutterBox4 .tit2{background:red;}
+#shutterBox3 .tit3,#shutterBox4 .tit3{background:gray;}
+#shutterBox3 .tit4,#shutterBox4 .tit4{background:#920;}
+</style>
+<div class="shutterBox" id="shutterBox">
+	<dl class="con_01">
+		<dd><img src="images/shutter1.jpg" width="636" height="240" alt=""/></dd>			  	
+		<dt class="tit1"></dt>
+	</dl>
+	<dl class="con_02">
+		<dd><img src="images/shutter2.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit2"></dt>
+	</dl>
+	<dl class="con_03">
+		<dd><img src="images/shutter3.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit3"></dt>
+	</dl> 
+	<dl class="con_04">
+		<dd><img src="images/shutter4.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit4"></dt>
+	</dl> 
+</div>
+<div class="shutterBox" id="shutterBox2">
+	<dl class="con_01">
+		<dd><img src="images/shutter1.jpg" width="636" height="240" alt=""/></dd>			  	
+		<dt class="tit1"></dt>
+	</dl>
+	<dl class="con_02">
+		<dd><img src="images/shutter2.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit2"></dt>
+	</dl>
+	<dl class="con_03">
+		<dd><img src="images/shutter3.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit3"></dt>
+	</dl> 
+	<dl class="con_04">
+		<dd><img src="images/shutter4.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit4"></dt>
+	</dl> 
+</div>
+<div id="shutterBox3">
+	<dl class="con_01">
+		<dd><img src="images/shutter1.jpg" width="636" height="240" alt=""/></dd>			  	
+		<dt class="tit1"></dt>
+	</dl>
+	<dl class="con_02">
+		<dd><img src="images/shutter2.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit2"></dt>
+	</dl>
+	<dl class="con_03">
+		<dd><img src="images/shutter3.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit3"></dt>
+	</dl> 
+	<dl class="con_04">
+		<dd><img src="images/shutter4.jpg" width="636" height="240" alt=""/></dd>
+		<dt class="tit4"></dt>
+	</dl> 
+</div>
+
+<div id="shutterBox4">
+	<dl class="con_01">  	
+		<dt class="tit1"></dt>
+		<dd><img src="images/shutter1.jpg" width="636" height="240" alt=""/></dd>			
+	</dl>
+	<dl class="con_02">
+		<dt class="tit2"></dt>
+		<dd><img src="images/shutter2.jpg" width="636" height="240" alt=""/></dd>
+	</dl>
+	<dl class="con_03">
+		<dt class="tit3"></dt>
+		<dd><img src="images/shutter3.jpg" width="636" height="240" alt=""/></dd>
+	</dl> 
+	<dl class="con_04">
+		<dt class="tit4"></dt>
+		<dd><img src="images/shutter4.jpg" width="636" height="240" alt=""/></dd>
+	</dl> 
+</div>
+<script type="text/javascript">
+	// 配合 jquery.easing.min.js 使用easing
+	// 按钮在右
+	$("#shutterBox").shutter({btn:'dt',dir:3,easing:'easeOutBounce',speed:800});
+	// 按钮在左
+	$("#shutterBox2").shutter({btn:'dt',dir:1,easing:'easeOutExpo',speed:800});
+	// 按钮在下
+	$("#shutterBox3").shutter({btn:'dt',dir:0,easing:'swing',speed:300});
+	// 按钮在上
+	$("#shutterBox4").shutter({btn:'dt',dir:2,speed:300});
+</script>
+<br>
+
+
+
+<!-- 图片预加载 -->
+<script type="text/javascript">
+	$('body').imgPreLoader(function(per){
+		//console.log(per);
+	},function(){
+		//console.log('preload completed!');
+	});
+</script>
+
+</body>
+</html>
